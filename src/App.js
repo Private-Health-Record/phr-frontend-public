@@ -5,6 +5,8 @@ import DoctorProfile from "./pages/CreateAccDoctor";
 import PatientProfile from "./pages/CreateAccPatient";
 import TreatmentForm from "./pages/Treatements";
 import CreateAccOptions from "./pages/CreateAccOptions";
+import PatientDashboard from "./pages/PatientDashboard";
+import DoctorDashboard from "./pages/DoctorDashboard";
 
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path="/CreateAccDoctor" element={<DoctorProfile />} />
         <Route path="/CreateAccPatient" element={<PatientProfile />} />
         <Route path="/Treatements" element={<TreatmentForm />} />
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
       </Routes>
     </Router>
   );

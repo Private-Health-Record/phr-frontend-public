@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/dashboard.css';
+import '../styles/variables.css';
+import '../styles/modern-dashboard.css';
 
 function PatientDashboard() {
-    const [patientData, setPatientData] = useState({
+    const [patientData] = useState({
         name: 'John Patient',
         email: 'patient@example.com',
         age: 35,
@@ -16,7 +17,7 @@ function PatientDashboard() {
             id: 1,
             title: 'Blood Test Results',
             date: '2024-01-15',
-            doctor: 'Dr. Smith',
+            doctor: 'Smith',
             type: 'Lab Report',
             summary: 'All levels normal',
             accessGranted: ['dr.smith@hospital.com']
@@ -25,7 +26,7 @@ function PatientDashboard() {
             id: 2,
             title: 'X-Ray Chest',
             date: '2024-01-10',
-            doctor: 'Dr. Johnson',
+            doctor: 'Johnson',
             type: 'Imaging',
             summary: 'No abnormalities detected',
             accessGranted: []
@@ -43,6 +44,8 @@ function PatientDashboard() {
     const [selectedRecordId, setSelectedRecordId] = useState(null);
     const [showUploadForm, setShowUploadForm] = useState(false);
     const [showAccessForm, setShowAccessForm] = useState(false);
+    const [isWalletConnected, setIsWalletConnected] = useState(false);
+    const [walletAddress, setWalletAddress] = useState('');
 
     const navigate = useNavigate();
 
@@ -96,109 +99,247 @@ function PatientDashboard() {
         ));
     };
 
+    const handleConnectWallet = async () => {
+        try {
+            const mockAddress = '0x' + Math.random().toString(16).substr(2, 40);
+            setWalletAddress(mockAddress);
+            setIsWalletConnected(true);
+        } catch (error) {
+            console.error('Failed to connect wallet:', error);
+        }
+    };
+
+    const handleDisconnectWallet = () => {
+        setWalletAddress('');
+        setIsWalletConnected(false);
+    };
+
     return (
-        <div className="dashboard-container">
-            <header className="dashboard-header">
-                <div className="header-content">
-                    <h1>Patient Dashboard</h1>
-                    <div className="header-actions">
-                        <span className="welcome-text">Welcome, {patientData.name}</span>
-                        <button onClick={handleLogout} className="logout-btn">Logout</button>
+        <div className="dashboard-layout">
+            {/* Sidebar */}
+            <aside className="sidebar">
+                <div className="sidebar-header">
+                    <div className="sidebar-brand">
+                        <div className="brand-icon">🏥</div>
+                        <span className="brand-text">HealthPro</span>
                     </div>
                 </div>
-            </header>
 
-            <div className="dashboard-content">
-                <div className="dashboard-grid">
-                    {/* Patient Info Card */}
-                    <div className="info-card">
-                        <h2>Personal Information</h2>
-                        <div className="info-details">
-                            <div className="info-item">
-                                <span className="info-label">Name:</span>
-                                <span className="info-value">{patientData.name}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Email:</span>
-                                <span className="info-value">{patientData.email}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Age:</span>
-                                <span className="info-value">{patientData.age}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Blood Type:</span>
-                                <span className="info-value">{patientData.bloodType}</span>
-                            </div>
-                            <div className="info-item">
-                                <span className="info-label">Allergies:</span>
-                                <span className="info-value">{patientData.allergies.join(', ')}</span>
-                            </div>
-                        </div>
+                <nav className="sidebar-nav">
+                    <div className="nav-section">
+                        <div className="nav-section-title">Overview</div>
+                        <a href="#dashboard" className="nav-link active">
+                            <span className="nav-icon">📊</span>
+                            <span className="nav-text">Dashboard</span>
+                        </a>
+                        <a href="#records" className="nav-link">
+                            <span className="nav-icon">📋</span>
+                            <span className="nav-text">Health Records</span>
+                        </a>
+                        <a href="#access" className="nav-link">
+                            <span className="nav-icon">🔐</span>
+                            <span className="nav-text">Access Control</span>
+                        </a>
                     </div>
 
-                    {/* Quick Actions */}
-                    <div className="actions-card">
-                        <h2>Quick Actions</h2>
-                        <div className="action-buttons">
-                            <button
-                                onClick={() => setShowUploadForm(true)}
-                                className="action-btn upload-btn"
-                            >
-                                Upload New Record
-                            </button>
-                            <button
-                                onClick={() => setShowAccessForm(true)}
-                                className="action-btn access-btn"
-                            >
-                                Grant Doctor Access
-                            </button>
+                    <div className="nav-section">
+                        <div className="nav-section-title">Actions</div>
+                        <button onClick={() => setShowUploadForm(true)} className="nav-link">
+                            <span className="nav-icon">📤</span>
+                            <span className="nav-text">Upload Record</span>
+                        </button>
+                        <button onClick={() => setShowAccessForm(true)} className="nav-link">
+                            <span className="nav-icon">👩‍⚕️</span>
+                            <span className="nav-text">Grant Access</span>
+                        </button>
+                    </div>
+
+                    <div className="nav-section">
+                        <div className="nav-section-title">Settings</div>
+                        <a href="#profile" className="nav-link">
+                            <span className="nav-icon">👤</span>
+                            <span className="nav-text">Profile</span>
+                        </a>
+                        <a href="#security" className="nav-link">
+                            <span className="nav-icon">🛡️</span>
+                            <span className="nav-text">Security</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <div className="sidebar-footer">
+                    <div className="user-profile">
+                        <div className="user-avatar">👤</div>
+                        <div className="user-info">
+                            <div className="user-name">{patientData.name}</div>
+                            <div className="user-role">Patient</div>
+                        </div>
+                    </div>
+                    <button onClick={handleLogout} className="logout-button">
+                        <span className="logout-icon">🚪</span>
+                        <span className="logout-text">Logout</span>
+                    </button>
+                </div>
+            </aside>
+
+            {/* Main Content */}
+            <main className="main-content">
+                <header className="content-header">
+                    <div className="header-left">
+                        <h1 className="page-title">Patient Dashboard</h1>
+                        <p className="page-subtitle">Manage your health records and access permissions</p>
+                    </div>
+                    <div className="header-right">
+                        <div className="wallet-section">
+                            {isWalletConnected ? (
+                                <div className="wallet-connected">
+                                    <div className="wallet-info">
+                                        <div className="wallet-status">
+                                            <span className="wallet-indicator">🟢</span>
+                                            <span className="wallet-text">Wallet Connected</span>
+                                        </div>
+                                        <div className="wallet-address">
+                                            {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                                        </div>
+                                    </div>
+                                    <button onClick={handleDisconnectWallet} className="btn btn-outline btn-sm">
+                                        Disconnect
+                                    </button>
+                                </div>
+                            ) : (
+                                <button onClick={handleConnectWallet} className="btn btn-primary">
+                                    <span className="btn-icon">👛</span>
+                                    Connect Wallet
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </header>
+
+                <div className="dashboard-grid">
+                    {/* Patient Info Card */}
+                    <div className="dashboard-card">
+                        <div className="card-header">
+                            <h2 className="card-title">Personal Information</h2>
+                            <span className="card-icon">👤</span>
+                        </div>
+                        <div className="card-content">
+                            <div className="info-grid">
+                                <div className="info-item">
+                                    <span className="info-label">Full Name</span>
+                                    <span className="info-value">{patientData.name}</span>
+                                </div>
+                                <div className="info-item">
+                                    <span className="info-label">Email Address</span>
+                                    <span className="info-value">{patientData.email}</span>
+                                </div>
+                                <div className="info-item">
+                                    <span className="info-label">Age</span>
+                                    <span className="info-value">{patientData.age} years</span>
+                                </div>
+                                <div className="info-item">
+                                    <span className="info-label">Blood Type</span>
+                                    <span className="info-value">
+                                        <span className="blood-type-badge">{patientData.bloodType}</span>
+                                    </span>
+                                </div>
+                                <div className="info-item full-width">
+                                    <span className="info-label">Known Allergies</span>
+                                    <div className="allergies-list">
+                                        {patientData.allergies.map((allergy, index) => (
+                                            <span key={index} className="allergy-badge">{allergy}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     {/* Health Records */}
-                    <div className="records-card">
-                        <h2>Health Records</h2>
-                        <div className="records-list">
-                            {healthRecords.map(record => (
-                                <div key={record.id} className="record-item">
-                                    <div className="record-header">
-                                        <h3>{record.title}</h3>
-                                        <span className="record-date">{record.date}</span>
-                                    </div>
-                                    <div className="record-details">
-                                        <div className="record-info">
-                                            <span className="record-type">{record.type}</span>
-                                            <span className="record-doctor">Dr: {record.doctor}</span>
-                                        </div>
-                                        <p className="record-summary">{record.summary}</p>
-                                    </div>
-                                    <div className="access-section">
-                                        <h4>Access Granted To:</h4>
-                                        {record.accessGranted.length === 0 ? (
-                                            <p className="no-access">No doctors have access</p>
-                                        ) : (
-                                            <div className="access-list">
-                                                {record.accessGranted.map(email => (
-                                                    <div key={email} className="access-item">
-                                                        <span>{email}</span>
-                                                        <button
-                                                            onClick={() => handleRevokeAccess(record.id, email)}
-                                                            className="revoke-btn"
-                                                        >
-                                                            Revoke
-                                                        </button>
-                                                    </div>
-                                                ))}
+                    <div className="dashboard-card full-width">
+                        <div className="card-header">
+                            <h2 className="card-title">Health Records</h2>
+                            <div className="card-actions">
+                                <button onClick={() => setShowUploadForm(true)} className="btn btn-primary btn-sm">
+                                    <span className="btn-icon">📤</span>
+                                    Upload
+                                </button>
+                            </div>
+                        </div>
+                        <div className="card-content">
+                            <div className="records-grid">
+                                {healthRecords.map(record => (
+                                    <div key={record.id} className="record-card">
+                                        <div className="record-header">
+                                            <div className="record-title-section">
+                                                <h3 className="record-title">{record.title}</h3>
+                                                <div className="record-meta">
+                                                    <span className="record-type-badge">{record.type}</span>
+                                                    <span className="record-date">{record.date}</span>
+                                                </div>
                                             </div>
-                                        )}
+                                            <div className="record-actions">
+                                                <button className="btn btn-outline btn-sm">
+                                                    <span className="btn-icon">👁️</span>
+                                                    View
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="record-content">
+                                            <div className="record-info">
+                                                <div className="record-doctor">
+                                                    <span className="doctor-icon">👨‍⚕️</span>
+                                                    <span>Dr. {record.doctor}</span>
+                                                </div>
+                                            </div>
+                                            <p className="record-summary">{record.summary}</p>
+                                        </div>
+
+                                        <div className="access-section">
+                                            <div className="access-header">
+                                                <h4 className="access-title">Access Permissions</h4>
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedRecordId(record.id);
+                                                        setShowAccessForm(true);
+                                                    }}
+                                                    className="btn btn-secondary btn-xs"
+                                                >
+                                                    Grant Access
+                                                </button>
+                                            </div>
+                                            {record.accessGranted.length === 0 ? (
+                                                <div className="no-access">
+                                                    <span className="no-access-icon">🔒</span>
+                                                    <span>No doctors have access</span>
+                                                </div>
+                                            ) : (
+                                                <div className="access-list">
+                                                    {record.accessGranted.map(email => (
+                                                        <div key={email} className="access-item">
+                                                            <div className="access-doctor">
+                                                                <span className="doctor-avatar">👨‍⚕️</span>
+                                                                <span className="doctor-email">{email}</span>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => handleRevokeAccess(record.id, email)}
+                                                                className="btn btn-danger btn-xs"
+                                                            >
+                                                                Revoke
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
 
             {/* Upload Form Modal */}
             {showUploadForm && (
@@ -257,11 +398,11 @@ function PatientDashboard() {
                                 />
                             </div>
                             <div className="form-actions">
-                                <button type="submit" className="submit-btn">Upload Record</button>
+                                <button type="submit" className="btn btn-primary">Upload Record</button>
                                 <button
                                     type="button"
                                     onClick={() => setShowUploadForm(false)}
-                                    className="cancel-btn"
+                                    className="btn btn-outline"
                                 >
                                     Cancel
                                 </button>
@@ -311,11 +452,11 @@ function PatientDashboard() {
                                 />
                             </div>
                             <div className="form-actions">
-                                <button type="submit" className="submit-btn">Grant Access</button>
+                                <button type="submit" className="btn btn-primary">Grant Access</button>
                                 <button
                                     type="button"
                                     onClick={() => setShowAccessForm(false)}
-                                    className="cancel-btn"
+                                    className="btn btn-outline"
                                 >
                                     Cancel
                                 </button>

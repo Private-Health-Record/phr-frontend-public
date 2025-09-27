@@ -13,7 +13,6 @@ function Login() {
 
     const navigate = useNavigate();
 
-<<<<<<< HEAD
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -38,32 +37,6 @@ function Login() {
             console.error(error);
         }
     };  
-=======
-    // const handleSubmit = async (e) => {
-
-    //     e.preventDefault();
-
-    //     try {
-
-    //         const response = await axios.post('', {
-    //             username: Username,
-    //             password: Password
-    //         });
-
-    //         if (response.data.success){
-    //             navigate('/game', { replace: true, state: { username: Username } }); 
-    //         }
-
-    //         else {
-    //             seterrorMessage('Incorrect credentials');
-    //         }
-
-    //     } catch (error) { 
-    //         seterrorMessage('Incorrect credentials');
-    //         console.error(error);
-    //     }
-    // };  
->>>>>>> 6866c67 (initial)
     
     //useEffect to focus on username
     useEffect(() => {
@@ -83,11 +56,7 @@ function Login() {
 
                 {errorMessage && <div className = "ErrorMessage"> {errorMessage} </div>}
 
-<<<<<<< HEAD
                 <form name = 'formx' onSubmit={handleSubmit}>
-=======
-                <form name = 'formx'>
->>>>>>> 6866c67 (initial)
 
                     <input type = 'text' value = {Username} onChange = {(e) => setUsername(e.target.value)} placeholder = 'Username / Email Address' name = 'Username' ref = {userRef} className = 'UsernameBox' required autoComplete = 'off'/>
                     <input type = 'password' value = {Password} onChange = {(e) => setPassword(e.target.value)} placeholder = 'Password' name = 'Password' className = 'PasswordBox' />

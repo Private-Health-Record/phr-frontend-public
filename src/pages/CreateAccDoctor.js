@@ -1,9 +1,8 @@
-<<<<<<< HEAD
+
 import { useState, useRef, useEffect } from 'react';
 import '../styles/login.css';
 import axios from 'axios';
 import { useNavigate,Link } from 'react-router-dom';
-
 
 function CreateAccDoctor() {
 
@@ -94,18 +93,3 @@ function CreateAccDoctor() {
 };
 
 export default CreateAccDoctor;
-=======
-import { Link } from "react-router-dom";
-
-function CreateAccDoctor() {
-  return (
-    <div>
-          <p>
-            Doctor Sign Up
-          </p>
-    </div>
-  );
-}
-
-export default CreateAccDoctor;
->>>>>>> 6866c67 (initial)

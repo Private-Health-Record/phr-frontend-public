@@ -13,30 +13,30 @@ function Login() {
 
     const navigate = useNavigate();
 
-    // const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
 
-    //     e.preventDefault();
+        e.preventDefault();
 
-    //     try {
+        try {
 
-    //         const response = await axios.post('', {
-    //             username: Username,
-    //             password: Password
-    //         });
+            const response = await axios.post('', {
+                username: Username,
+                password: Password
+            });
 
-    //         if (response.data.success){
-    //             navigate('/game', { replace: true, state: { username: Username } }); 
-    //         }
+            if (response.data.success){
+                navigate('/', { replace: true, state: { username: Username } }); 
+            }
 
-    //         else {
-    //             seterrorMessage('Incorrect credentials');
-    //         }
+            else {
+                seterrorMessage('Incorrect credentials');
+            }
 
-    //     } catch (error) { 
-    //         seterrorMessage('Incorrect credentials');
-    //         console.error(error);
-    //     }
-    // };  
+        } catch (error) { 
+            seterrorMessage('Incorrect credentials');
+            console.error(error);
+        }
+    };  
     
     //useEffect to focus on username
     useEffect(() => {
@@ -56,7 +56,7 @@ function Login() {
 
                 {errorMessage && <div className = "ErrorMessage"> {errorMessage} </div>}
 
-                <form name = 'formx'>
+                <form name = 'formx' onSubmit={handleSubmit}>
 
                     <input type = 'text' value = {Username} onChange = {(e) => setUsername(e.target.value)} placeholder = 'Username / Email Address' name = 'Username' ref = {userRef} className = 'UsernameBox' required autoComplete = 'off'/>
                     <input type = 'password' value = {Password} onChange = {(e) => setPassword(e.target.value)} placeholder = 'Password' name = 'Password' className = 'PasswordBox' />

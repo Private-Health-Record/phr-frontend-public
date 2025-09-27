@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import NewAccount from './pages/CreateAcc';
 import DoctorProfile from "./pages/CreateAccDoctor";
@@ -13,7 +14,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/CreateAcc" element={<NewAccount />} />
         <Route path="/CreateAccOptions" element={<CreateAccOptions />} />
         <Route path="/CreateAccDoctor" element={<DoctorProfile />} />

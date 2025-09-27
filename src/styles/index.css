@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+select {
+  color: #ccc;
+}
+
+input[type="date"] {
+  color: #ccc;
+}

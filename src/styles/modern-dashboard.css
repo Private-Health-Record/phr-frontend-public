@@ -58,6 +58,10 @@
   overflow-y: auto;
 }
 
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+
 .nav-section {
   margin-bottom: var(--space-8);
 }
@@ -893,6 +897,7 @@
   font-size: var(--text-base);
   background: var(--neutral-0);
   transition: all var(--transition-base);
+  color: var(--neutral-700);
 }
 
 .search-input-group .search-input:focus {

@@ -123,7 +123,7 @@
 .form-label {
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
-  color: var(--neutral-700);
+  color: var(--neutral-200);
 }
 
 .form-input, .form-select {
@@ -135,6 +135,7 @@
   font-family: inherit;
   transition: all var(--transition-base);
   background: var(--neutral-50);
+  color: var(--neutral-700);
 }
 
 .form-input:focus, .form-select:focus {

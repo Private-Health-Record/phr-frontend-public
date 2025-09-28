@@ -90,7 +90,7 @@ function LandingPage() {
                     </div>
 
                     <div className="nav-actions">
-                        <Link to="/" className="btn btn-outline">Sign In</Link>
+                        <Link to="/login" className="btn btn-outline">Sign In</Link>
                         <Link to="/CreateAccOptions" className="btn btn-primary">Get Started</Link>
                     </div>
 
